@@ -64,25 +64,24 @@
                <break size="small" />
                <audio expr="announcement" />
             </prompt>
-            <goto next="#confirmation" />
+            <menu id="confirmation" dtmf="true">
+               <prompt>If you want post this announcement, select 1. If you want to record a new announcement, select 2. To exit, select 3.</prompt>
+               <choice next="#save" />
+               <choice next="#record_announcement" />
+               <choice next="#exit_module" />
+            </menu>
+            <block id="save">
+               <submit next="/announcement" method="post" namelist="announcement" enctype="multipart/form-data" />
+               <block>
+                  <prompt>saving</prompt>
+               </block>
+            </block>
+            <block id="exit_module">
+               <block>
+                  <prompt>exiting</prompt>
+               </block>
+            </block>
          </filled>
       </record>
-   </form>
-   <menu id="confirmation" dtmf="true">
-      <prompt>If you want post this announcement, select 1. If you want to record a new announcement, select 2. To exit, select 3.</prompt>
-      <choice next="#save" />
-      <choice next="#record_announcement" />
-      <choice next="#exit_module" />
-   </menu>
-   <form id="save">
-      <submit next="/announcement" method="post" namelist="announcement" enctype="multipart/form-data" />
-      <block>
-         <prompt>saving</prompt>
-      </block>
-   </form>
-   <form id="exit_module">
-      <block>
-         <prompt>exiting</prompt>
-      </block>
    </form>
 </vxml>
