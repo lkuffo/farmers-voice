@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from flask import Flask, render_template, make_response, request
+from flask import Flask, render_template, make_response, request, send_file
 from werkzeug.utils import secure_filename
 import os
 
@@ -17,6 +17,24 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 @app.route('/vxml', methods=['GET'])
 def vxml():
     template = render_template('main.html')
+    response = make_response(template)
+    response.headers['Content-Type'] = 'application/xml'
+    return response
+
+
+@app.route('/announcements/<filename>', methods=['GET'])
+def play_announcement(filename):
+    path_to_file = "./announcements/" + filename
+
+    return send_file(
+        path_to_file,
+        mimetype="audio/wav",
+        as_attachment=False)
+
+
+@app.route('/play_announcements', methods=['GET'])
+def play_announcements():
+    template = render_template('play_announcements.html')
     response = make_response(template)
     response.headers['Content-Type'] = 'application/xml'
     return response
