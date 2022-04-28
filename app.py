@@ -32,7 +32,10 @@ def upload_voice():
     file = request.files['announcement']
     filename = secure_filename(file.filename)
     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    return 'ok', 200
+    template = render_template('announcement_saved.html')
+    response = make_response(template)
+    response.headers['Content-Type'] = 'application/xml'
+    return response
 
 
 if __name__ == "__main__":
