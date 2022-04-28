@@ -27,9 +27,9 @@ def upload_voice():
     # check if the post request has the file part
     print(request)
     print(request.files)
-    if 'file' not in request.files:
+    if 'announcement' not in request.files:
         return 'not good', 500
-    file = request.files['file']
+    file = request.files['announcement']
     filename = secure_filename(file.filename)
     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     return 'ok', 200
