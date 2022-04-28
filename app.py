@@ -3,7 +3,7 @@ from flask import Flask, render_template, make_response, request
 from werkzeug.utils import secure_filename
 import os
 
-UPLOAD_FOLDER = '/announcements'
+UPLOAD_FOLDER = './announcements'
 
 load_dotenv()
 app = Flask('app')
