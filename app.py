@@ -22,9 +22,9 @@ def vxml():
     return response
 
 
-@app.route('/announcements/<filename>', methods=['GET'])
-def play_announcement(filename):
-    path_to_file = "./announcements/" + filename
+@app.route('/announcements/<lang>/<filename>', methods=['GET'])
+def play_announcement(lang, filename):
+    path_to_file = "./announcements/" + lang + '/' + filename
 
     return send_file(
         path_to_file,
@@ -32,12 +32,12 @@ def play_announcement(filename):
         as_attachment=False)
 
 
-@app.route('/play_announcements', methods=['GET'])
-def play_announcements():
+@app.route('/play_announcements/<lang>', methods=['GET'])
+def play_announcements(lang):
     file_endpoints = []
-    for file in os.listdir('./announcements'):
+    for file in os.listdir('./announcements/' + lang):
         if file.endswith('.wav'):
-            file_endpoints.append('/announcements/' + file)
+            file_endpoints.append('/announcements/' + lang + '/' + file)
     print(file_endpoints)
 
     template = render_template('play_announcements.html', announcements=file_endpoints)
@@ -46,8 +46,8 @@ def play_announcements():
     return response
 
 
-@app.route('/announcement', methods=['POST'])
-def upload_voice():
+@app.route('/announcement/<lang>', methods=['POST'])
+def upload_voice(lang):
     # check if the post request has the file part
     print(request)
     print(request.files)
@@ -55,7 +55,7 @@ def upload_voice():
         return 'not good', 500
     file = request.files['announcement']
     filename = secure_filename(file.filename)
-    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], lang, filename))
     template = render_template('announcement_saved.html')
     response = make_response(template)
     response.headers['Content-Type'] = 'application/xml'
