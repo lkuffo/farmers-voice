@@ -1,0 +1,87 @@
+<vxml version="2.1">
+   <menu id="language" dtmf="true">
+      <prompt>Welcome to Farmers Voices for Amazing Crops. Select 1 for French, select 2 for Bambara, select 3 for Bomu</prompt>
+      <choice next="#french" />
+      <choice next="#bambara" />
+      <choice next="#bomu" />
+   </menu>
+   <menu id="french" dtmf="true">
+      <prompt>You chose French. If you want to sell your seeds, select 1. If you want to buy seeds, select 2.</prompt>
+      <choice next="#record_announcement" />
+      <choice next="#french_buy" />
+   </menu>
+   <menu id="bambara" dtmf="true">
+      <prompt>You chose Bambara. If you want to sell your seeds, select 1. If you want to buy seeds, select 2.</prompt>
+      <choice next="#bambara_sell" />
+      <choice next="#bambara_buy" />
+   </menu>
+   <menu id="bomu" dtmf="true">
+      <prompt>You chose Bomu. If you want to sell your seeds, select 1. If you want to buy seeds, select 2.</prompt>
+      <choice next="#bomu_sell" />
+      <choice next="#bomu_buy" />
+   </menu>
+   <form id="french_sell">
+      <block>
+         <prompt>You want to sell seeds in French. Please record your announcement after the tone. Remember to say information about your seeds, your location, and your contact number</prompt>
+      </block>
+   </form>
+   <form id="french_buy">
+      <block>
+         <prompt>You want to buy seeds in French. Please listen to the following announcements.</prompt>
+      </block>
+   </form>
+   <form id="bambara_sell">
+      <block>
+         <prompt>You want to sell seeds in Bambara. Please record your announcement after the tone. Remember to say information about your seeds, your location, and your contact number</prompt>
+      </block>
+   </form>
+   <form id="bambara_buy">
+      <block>
+         <prompt>You want to buy seeds in Bambara. Please listen to the following announcements.</prompt>
+      </block>
+   </form>
+   <form id="bomu_sell">
+      <block>
+         <prompt>You want to sell seeds in Bomu. Please record your announcement after the tone. Remember to say information about your seeds, your location, and your contact number</prompt>
+      </block>
+   </form>
+   <form id="bomu_buy">
+      <block>
+         <prompt>You want to buy seeds in Bomu. Please listen to the following announcements.</prompt>
+      </block>
+   </form>
+   <form id="record_announcement">
+      <!--  the resulting recording is stored in the variable announcement
+        you may only submit it to the server via the named variable  -->
+      <record name="announcement" maxtime="60s" dtmfterm="true" beep="true" finalsilence="10s">
+         <prompt>At the tone, please record your announcement. When you're done, press pound.</prompt>
+         <filled>
+            <log expr="announcement$.duration" />
+            <log expr="announcement$.termchar" />
+            <log expr="announcement$.size" />
+            <prompt>
+               Here's what buyers will hear.
+               <break size="small" />
+               <audio expr="announcement" />
+            </prompt>
+            <goto expr="confirmation" />
+         </filled>
+      </record>
+   </form>
+   <menu id="confirmation" dtmf="true">
+      <prompt>If you want post this announcement, select 1. If you want to record a new announcement, select 2. To exit, select 3.</prompt>
+      <choice next="#save" />
+      <choice next="#record_announcement" />
+      <choice next="#exit_module" />
+   </menu>
+   <form id="save">
+      <block>
+         <prompt>saving</prompt>
+      </block>
+   </form>
+   <form id="exit_module">
+      <block>
+         <prompt>exiting</prompt>
+      </block>
+   </form>
+</vxml>
