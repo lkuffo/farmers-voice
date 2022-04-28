@@ -25,6 +25,8 @@ def vxml():
 @app.route('/announcement', methods=['POST'])
 def upload_voice():
     # check if the post request has the file part
+    print(request)
+    print(request.files)
     if 'file' not in request.files:
         return 'not good', 500
     file = request.files['file']
