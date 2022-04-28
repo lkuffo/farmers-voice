@@ -64,7 +64,6 @@
                <break size="small" />
                <audio expr="announcement" />
             </prompt>
-            <submit next="/announcement" method="post" namelist="announcement" enctype="multipart/form-data" />
             <goto expr="confirmation" />
          </filled>
       </record>
@@ -76,6 +75,7 @@
       <choice next="#exit_module" />
    </menu>
    <form id="save">
+      <submit next="/announcement" method="post" namelist="announcement" enctype="multipart/form-data" />
       <block>
          <prompt>saving</prompt>
       </block>
