@@ -1,7 +1,14 @@
 <vxml version="2.1">
-    <form id="save">
+   <form>
         <block>
-            <prompt> Seller not verified </prompt>
+            {%  for announcement in announcements %}
+                <prompt>
+                    Announcement {{loop.index}}
+                </prompt>
+                <prompt>
+                    <audio src="{{ announcement }}" fetchtimeout="5s"> Audio does not exist </audio>
+                </prompt>
+            {% endfor %}
         </block>
     </form>
 </vxml>

@@ -34,7 +34,13 @@ def play_announcement(filename):
 
 @app.route('/play_announcements', methods=['GET'])
 def play_announcements():
-    template = render_template('play_announcements.html')
+    file_endpoints = []
+    for file in os.listdir('./announcements'):
+        if file.endswith('.wav'):
+            file_endpoints.append('/announcements/' + file)
+    print(file_endpoints)
+
+    template = render_template('play_announcements.html', announcements=file_endpoints)
     response = make_response(template)
     response.headers['Content-Type'] = 'application/xml'
     return response
@@ -57,5 +63,5 @@ def upload_voice():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8080, host='0.0.0.0')
+    app.run(debug=True, port=8081, host='0.0.0.0')
 
