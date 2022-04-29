@@ -1,6 +1,7 @@
 <vxml version="2.1">
    <menu id="language" dtmf="true">
       <prompt>Welcome to Farmers Voices for Amazing Crops. Select 1 for English, select 2 for Dutch.</prompt>
+      <audio src="/announcements/recordings/dutch_intro.wav" fetchtimeout="5s"> </audio>
       <choice next="#english" />
       <choice next="#dutch" />
 <!--      <choice next="#bambara" />-->
@@ -12,6 +13,7 @@
       <choice next="#english_buy" />
    </menu>
    <menu id="dutch" dtmf="true">
+      <audio src="/announcements/recordings/dutch_sell.wav" fetchtimeout="5s"> </audio>
       <prompt>You chose Dutch. If you want to sell your seeds, select 1. If you want to buy seeds, select 2.</prompt>
       <choice next="#record_announcement_dutch" />
       <choice next="#dutch_buy" />
