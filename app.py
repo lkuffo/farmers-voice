@@ -40,7 +40,7 @@ def play_announcements(lang):
             file_endpoints.append('/announcements/' + lang + '/' + file)
     print(file_endpoints)
 
-    template = render_template('play_announcements.html', announcements=file_endpoints)
+    template = render_template('play_announcements.html', announcements=file_endpoints, language=lang)
     response = make_response(template)
     response.headers['Content-Type'] = 'application/xml'
     return response
@@ -56,7 +56,7 @@ def upload_voice(lang):
     file = request.files['announcement']
     filename = secure_filename(file.filename)
     file.save(os.path.join(app.config['UPLOAD_FOLDER'], lang, filename))
-    template = render_template('announcement_saved.html')
+    template = render_template('announcement_saved.html', language=lang)
     response = make_response(template)
     response.headers['Content-Type'] = 'application/xml'
     return response

@@ -3,7 +3,13 @@
         <block>
             {%  for announcement in announcements %}
                 <prompt>
-                    Announcement {{loop.index}}
+                    {% if language == 'lang1' %}
+                        Announcement {{loop.index}}
+                    {% elif language == 'lang2' %}
+                        <audio src="./announcements/recordings/dutch_next_announcement.wav" fetchtimeout="5s"> Audio does not exist </audio>
+                    {% else %}
+                        Announcement {{loop.index}}
+                    {% endif %}
                 </prompt>
                 <prompt>
                     <audio src="{{ announcement }}" fetchtimeout="5s"> Audio does not exist </audio>
