@@ -116,7 +116,9 @@
             <if cond="saveopt == 1">
                   <submit next="/announcement/lang2" method="post" namelist="announcement" enctype="multipart/form-data" />
                   <clear namelist="pin"/>
-                  <prompt> Announcement saved </prompt>
+                  <prompt>
+                     <audio src="./announcements/recordings/dutch_saved.wav" fetchtimeout="5s"> Audio does not exist </audio>
+                  </prompt>
                <elseif cond="saveopt == 2"/>
                   <clear namelist="pin"/>
                   <goto next="#record_announcement_dutch" />
