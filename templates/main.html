@@ -1,19 +1,20 @@
 <vxml version="2.1">
    <menu id="language" dtmf="true">
-      <prompt>Welcome to Farmers Voices for Amazing Crops. Select 1 for English, select 2 for Dutch.</prompt>
-      <audio src="/announcements/recordings/dutch_intro.wav" fetchtimeout="5s"> </audio>
+<!--      <prompt>Welcome to Farmers Voices for Amazing Crops. Select 1 for English, select 2 for Dutch.</prompt>-->
+      <audio src="/announcements/recordings/dutch_intro_2.wav" fetchtimeout="5s"> </audio>
       <choice next="#english" />
       <choice next="#dutch" />
 <!--      <choice next="#bambara" />-->
 <!--      <choice next="#bomu" />-->
    </menu>
    <menu id="english" dtmf="true">
-      <prompt>You chose English. If you want to sell your seeds, select 1. If you want to buy seeds, select 2.</prompt>
+      <audio src="/announcements/recordings/english_buy_or_sell_2.wav" fetchtimeout="5s"> </audio>
+<!--      <prompt>You chose English. If you want to sell your seeds, select 1. If you want to buy seeds, select 2.</prompt>-->
       <choice next="#record_announcement_english" />
       <choice next="#english_buy" />
    </menu>
    <menu id="dutch" dtmf="true">
-      <audio src="/announcements/recordings/dutch_buy_or_sell.wav" fetchtimeout="5s"> </audio>
+      <audio src="/announcements/recordings/dutch_buy_or_sell_2.wav" fetchtimeout="5s"> </audio>
       <choice next="#record_announcement_dutch" />
       <choice next="#dutch_buy" />
    </menu>
@@ -29,13 +30,14 @@
 <!--   </menu>-->
    <form id="english_buy">
       <block>
-         <prompt>You want to buy seeds in English. Please listen to the following announcements.</prompt>
+<!--         <prompt>You want to buy seeds in English. Please listen to the following announcements.</prompt>-->
+         <audio src="/announcements/recordings/english_buy_2.wav" fetchtimeout="5s"> </audio>
          <submit next="/play_announcements/lang1" method="get"/>
       </block>
    </form>
    <form id="dutch_buy">
       <block>
-         <audio src="/announcements/recordings/dutch_buy.wav" fetchtimeout="5s"> </audio>
+         <audio src="/announcements/recordings/dutch_buy_2.wav" fetchtimeout="5s"> </audio>
          <submit next="/play_announcements/lang2" method="get"/>
       </block>
    </form>
@@ -63,7 +65,8 @@
       <!--  the resulting recording is stored in the variable announcement
         you may only submit it to the server via the named variable  -->
       <record name="announcement" maxtime="60s" dtmfterm="true" beep="true" finalsilence="10s">
-         <prompt>At the tone, please record your announcement. When you're done, press pound.</prompt>
+<!--         <prompt>At the tone, please record your announcement. When you're done, press pound.</prompt>-->
+         <audio src="/announcements/recordings/english_sell_2.wav" fetchtimeout="5s"> </audio>
          <filled>
             <log expr="announcement$.duration" />
             <log expr="announcement$.termchar" />
@@ -77,8 +80,9 @@
       </record>
 
       <field name="saveopt" type="digits?length=1">
-         <prompt>If you want post this announcement, select 1. If you want to record a new announcement, select 2. To exit, select 3.</prompt>
-         <filled>
+<!--         <prompt>If you want post this announcement, select 1. If you want to record a new announcement, select 2. To exit, select 3.</prompt>-->
+          <audio src="/announcements/recordings/english_confirm_2.wav" fetchtimeout="5s"> </audio>
+          <filled>
             <if cond="saveopt == 1">
                   <submit next="/announcement/lang1" method="post" namelist="announcement" enctype="multipart/form-data" />
                   <clear namelist="pin"/>
@@ -98,7 +102,7 @@
       <!--  the resulting recording is stored in the variable announcement
         you may only submit it to the server via the named variable  -->
       <record name="announcement" maxtime="60s" dtmfterm="true" beep="true" finalsilence="10s">
-         <audio src="/announcements/recordings/dutch_sell.wav" fetchtimeout="5s"> </audio>
+         <audio src="/announcements/recordings/dutch_sell_2.wav" fetchtimeout="5s"> </audio>
          <filled>
             <log expr="announcement$.duration" />
             <log expr="announcement$.termchar" />
@@ -112,7 +116,8 @@
       </record>
 
       <field name="saveopt" type="digits?length=1">
-         <audio src="/announcements/recordings/dutch_confirm.wav" fetchtimeout="5s"> </audio>         <filled>
+         <audio src="/announcements/recordings/dutch_confirm_2.wav" fetchtimeout="5s"> </audio>
+          <filled>
             <if cond="saveopt == 1">
                   <submit next="/announcement/lang2" method="post" namelist="announcement" enctype="multipart/form-data" />
                   <clear namelist="pin"/>
